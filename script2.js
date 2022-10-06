@@ -1,8 +1,12 @@
 let board = document.querySelector(".board");
-let gameOver = document.querySelector(".game-over");
-let restartGameBtn = document.querySelector(".restart-game");
+let scoreElement = document.querySelector(".score");
+let gameOverModal = document.querySelector(".game-over");
+let restartGameBtn = document.querySelector(".restart-game-btn");
+let highScoreElement = document.querySelector(".high-score");
 let boardWidth = 11;
 let frameRate = 200;
+let highScore = 0;
+let currentScore = 0;
 board.style.gridTemplateColumns = `repeat(${boardWidth}, 1fr)`;
 board.style.gridTemplateRows = `repeat(${boardWidth}, 1fr)`;
 let midBoard = Math.ceil(boardWidth / 2);
@@ -41,6 +45,8 @@ function snakeCollision(location) {
 // ================ SNAKE - APPLE COLLISION =====================
 function snakeAppleCollision() {
   if (snakeCollision(apple)) {
+    currentScore += 1;
+    scoreElement.textContent = `${currentScore}`;
     randomAppleLocation();
     snake.push(snake.at(-1));
   }
@@ -105,6 +111,27 @@ addEventListener("keydown", (e) => {
       break;
   }
 });
+restartGameBtn.addEventListener("click", () => {
+  gameOverModal.close();
+  gameOverModal.style.display = "none";
+  resetGame();
+  animate();
+});
+// ================ RESET GAME =====================
+
+function resetGame() {
+  board.innerHTML = "";
+
+  currentScore = 0;
+  scoreElement.textContent = `${currentScore}`;
+  snake = [
+    { x: midBoard, y: 3 },
+    { x: midBoard, y: 2 },
+    { x: midBoard, y: 1 },
+  ];
+  apple = { x: 1, y: 1 };
+  direction = { x: 0, y: 1 };
+}
 // ================ ANIMATION =====================
 randomAppleLocation(); // give apple a random location in the start
 function animate() {
@@ -125,7 +152,12 @@ function animate() {
       requestAnimationFrame(animate);
     }, frameRate);
   } else {
-    gameOver.showModal();
+    gameOverModal.showModal();
+    gameOverModal.style.display = "block";
+    if (currentScore > highScore) {
+      highScore = currentScore;
+    }
+    highScoreElement.textContent = `Highest Score: ${highScore}`;
   }
 }
 animate();
