@@ -3,26 +3,58 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background-color: antiquewhite;
+  background-color: rgb(21, 21, 21);
 }
 .board {
   display: grid;
   width: 400px;
   height: 400px;
-  border: 1px solid black;
+  border: 1px solid rgb(191, 191, 191);
+
+  /* box-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px; */
+}
+
+.apple {
+  border: 1px solid rgb(255, 38, 38);
+  background-color: rgb(182, 0, 0);
+  box-shadow: 0px 0px 25px 5px rgb(255, 38, 38);
+  border-radius: 50%;
 }
 .snake {
-  background-color: green;
+  margin: auto;
+  width: 80%;
+  height: 80%;
+  border: 1px solid rgb(96, 255, 43);
+  background-color: rgb(11, 158, 26);
+  z-index: 99;
+  box-shadow: 0px 0px 5px 1px rgb(96, 255, 43);
 }
-.cell {
-  border: 1px solid black;
+.snake-head {
+  border: 1px solid rgb(96, 255, 43);
+  background-color: rgb(11, 158, 26);
+  z-index: 2;
+  box-shadow: 0px 0px 5px 1px rgb(96, 255, 43);
+  border-radius: 50%;
 }
-.apple {
-  background-color: red;
+.game-over {
+  background-color: white;
+  z-index: 999;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  border: 1px solid red;
+  height: 50%;
+  width: 50%;
+}
+
+.game-over::backdrop {
+  background-color: rgba(33, 33, 33, 0.8);
 }
