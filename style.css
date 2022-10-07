@@ -15,34 +15,49 @@
 }
 .board {
   display: grid;
-  width: 400px;
-  height: 400px;
+  width: 70vmin;
+  height: 70vmin;
   border: 1px solid rgb(191, 191, 191);
 
   /* box-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px; */
 }
 
 .apple {
-  border: 1px solid rgb(255, 38, 38);
-  background-color: rgb(182, 0, 0);
-  box-shadow: 0px 0px 25px 5px rgb(255, 38, 38);
+  margin: auto;
+  background-color: #fff;
+  box-shadow: 0 0 60px 30px #fff, 0 0 100px 60px #b400ff, 0 0 140px 90px #ff00d4;
+  animation: glowing 0.7s ease-in-out infinite alternate;
   border-radius: 50%;
+  width: 70%;
+  height: 70%;
+}
+@keyframes glowing {
+  from {
+    box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #f0f, 0 0 40px #0ff,
+      0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+  }
+  to {
+    box-shadow: 0 0 30px #fff, 0 0 40px #ff4da6, 0 0 50px #ff4da6,
+      0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6, 0 0 90px #ff4da6;
+  }
 }
 .snake {
   margin: auto;
-  width: 80%;
-  height: 80%;
   border: 1px solid rgb(96, 255, 43);
   background-color: rgb(11, 158, 26);
+  width: 90%;
+  height: 90%;
   z-index: 99;
   box-shadow: 0px 0px 5px 1px rgb(96, 255, 43);
 }
 .snake-head {
   border: 1px solid rgb(96, 255, 43);
-  background-color: rgb(11, 158, 26);
-  z-index: 2;
+  background-color: rgb(13, 52, 17);
   box-shadow: 0px 0px 5px 1px rgb(96, 255, 43);
-  border-radius: 50%;
+  z-index: 2;
+  margin: auto;
+  width: 90%;
+  height: 90%;
 }
 .game-over {
   display: none;

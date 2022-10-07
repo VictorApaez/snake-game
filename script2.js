@@ -3,7 +3,7 @@ let scoreElement = document.querySelector(".score");
 let gameOverModal = document.querySelector(".game-over");
 let restartGameBtn = document.querySelector(".restart-game-btn");
 let highScoreElement = document.querySelector(".high-score");
-let boardWidth = 11;
+let boardWidth = 15;
 let frameRate = 200;
 let highScore = 0;
 let currentScore = 0;
@@ -66,13 +66,36 @@ function drawSnake() {
     let snakeElement = document.createElement("div");
     if (i === 0) {
       snakeElement.classList.add("snake-head");
+      // snakeElement.style.backgroundImage = "url('./images/snake.png')";
+      // snakeElement.style.backgroundPosition = "0% 0%";
+      // snakeElement.style.backgroundSize = "300%";
+      // checkDirection(snakeElement);
+    } else if (i === snake.length - 1) {
+      snakeElement.classList.add("snake");
     } else {
       snakeElement.classList.add("snake");
     }
     snakeElement.style.gridColumnStart = section.x;
     snakeElement.style.gridRowStart = section.y;
+
     board.appendChild(snakeElement);
   });
+
+  function checkDirection(snakeElement) {
+    switch (direction.x) {
+      case -1:
+        snakeElement.style.transform = "rotate(90deg)";
+        break;
+      case 1:
+        snakeElement.style.transform = "rotate(-90deg)";
+        break;
+    }
+    switch (direction.y) {
+      case -1:
+        snakeElement.style.transform = "rotate(180deg)";
+        break;
+    }
+  }
 }
 // ================ DRAW APPLE =====================
 function drawApple() {
@@ -121,7 +144,6 @@ restartGameBtn.addEventListener("click", () => {
 
 function resetGame() {
   board.innerHTML = "";
-
   currentScore = 0;
   scoreElement.textContent = `${currentScore}`;
   snake = [
@@ -135,12 +157,13 @@ function resetGame() {
 // ================ ANIMATION =====================
 randomAppleLocation(); // give apple a random location in the start
 function animate() {
+  let nextM = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
   if (
-    snake[0].x <= boardWidth &&
-    snake[0].x > 0 &&
-    snake[0].y > 0 &&
-    snake[0].y <= boardWidth &&
-    !snakeCollision(snake[0])
+    snake[0].x + direction.x <= boardWidth &&
+    snake[0].x + direction.x > 0 &&
+    snake[0].y + direction.y > 0 &&
+    snake[0].y + direction.y <= boardWidth &&
+    !snakeCollision(nextM)
   ) {
     board.innerHTML = "";
     update();
@@ -152,6 +175,7 @@ function animate() {
       requestAnimationFrame(animate);
     }, frameRate);
   } else {
+    console.log("end");
     gameOverModal.showModal();
     gameOverModal.style.display = "block";
     if (currentScore > highScore) {
