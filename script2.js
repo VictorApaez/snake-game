@@ -147,7 +147,7 @@ function displayGameOver() {
   if (currentScore > highScore) {
     highScore = currentScore;
   }
-  highScoreElement.textContent = `Highest Score: ${highScore}`;
+  highScoreElement.textContent = `High Score: ${highScore}`;
 }
 // ================ SNAKE BOUNDARIES =====================
 
