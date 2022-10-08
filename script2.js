@@ -17,7 +17,11 @@ let snake = [
 ];
 let apple = { x: 1, y: 1 };
 let direction = { x: 0, y: 1 };
+// ================ CLEAR BOARD =====================
 
+function clearBoard() {
+  board.innerHTML = "";
+}
 // ================ APPLE LOCATION =====================
 function randomAppleLocation() {
   let num1 = Math.floor(Math.random() * boardWidth + 1);
@@ -73,22 +77,6 @@ function drawSnake() {
 
     board.appendChild(snakeElement);
   });
-
-  function checkDirection(snakeElement) {
-    switch (direction.x) {
-      case -1:
-        snakeElement.style.transform = "rotate(90deg)";
-        break;
-      case 1:
-        snakeElement.style.transform = "rotate(-90deg)";
-        break;
-    }
-    switch (direction.y) {
-      case -1:
-        snakeElement.style.transform = "rotate(180deg)";
-        break;
-    }
-  }
 }
 // ================ DRAW APPLE =====================
 function drawApple() {
@@ -127,6 +115,7 @@ addEventListener("keydown", (e) => {
       break;
   }
 });
+// Hit Enter to restart game
 addEventListener("keydown", (e) => {
   if (lose.style.display === "flex" && e.code === "Enter") {
     board.style.display = "grid";
@@ -139,7 +128,7 @@ addEventListener("keydown", (e) => {
 // ================ RESET GAME =====================
 
 function resetGame() {
-  board.innerHTML = "";
+  clearBoard();
   currentScore = 0;
   scoreElement.textContent = `${currentScore}`;
   snake = [
@@ -150,33 +139,46 @@ function resetGame() {
   apple = { x: 1, y: 1 };
   direction = { x: 0, y: 1 };
 }
-// ================ ANIMATION =====================
-randomAppleLocation(); // give apple a random location in the start
-function animate() {
-  let nextM = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
-  if (
+// ================ DISPLAY GAME-OVER =====================
+
+function displayGameOver() {
+  lose.style.display = "flex";
+  board.style.display = "none";
+  if (currentScore > highScore) {
+    highScore = currentScore;
+  }
+  highScoreElement.textContent = `Highest Score: ${highScore}`;
+}
+// ================ SNAKE BOUNDARIES =====================
+
+function snakeInsideBoundary() {
+  let nextHeadPos = {
+    x: snake[0].x + direction.x,
+    y: snake[0].y + direction.y,
+  };
+  return (
     snake[0].x + direction.x <= boardWidth &&
     snake[0].x + direction.x > 0 &&
     snake[0].y + direction.y > 0 &&
     snake[0].y + direction.y <= boardWidth &&
-    !snakeCollision(nextM)
-  ) {
-    board.innerHTML = "";
+    !snakeCollision(nextHeadPos)
+  );
+}
+
+// ================ ANIMATION =====================
+randomAppleLocation(); // give apple a random location in the start
+function animate() {
+  if (snakeInsideBoundary()) {
+    clearBoard();
     update();
     snakeAppleCollision();
     drawSnake();
     drawApple();
-
     setTimeout(() => {
       requestAnimationFrame(animate);
     }, frameRate);
   } else {
-    lose.style.display = "flex";
-    board.style.display = "none";
-    if (currentScore > highScore) {
-      highScore = currentScore;
-    }
-    highScoreElement.textContent = `Highest Score: ${highScore}`;
+    displayGameOver();
   }
 }
 animate();
