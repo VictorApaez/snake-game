@@ -1,6 +1,6 @@
 let board = document.querySelector(".board");
 let scoreElement = document.querySelector(".score");
-let gameOverModal = document.querySelector(".game-over");
+let lose = document.querySelector(".game-over");
 let restartGameBtn = document.querySelector(".restart-game-btn");
 let highScoreElement = document.querySelector(".high-score");
 let boardWidth = 15;
@@ -10,7 +10,6 @@ let currentScore = 0;
 board.style.gridTemplateColumns = `repeat(${boardWidth}, 1fr)`;
 board.style.gridTemplateRows = `repeat(${boardWidth}, 1fr)`;
 let midBoard = Math.ceil(boardWidth / 2);
-
 let snake = [
   { x: midBoard, y: 3 },
   { x: midBoard, y: 2 },
@@ -66,12 +65,6 @@ function drawSnake() {
     let snakeElement = document.createElement("div");
     if (i === 0) {
       snakeElement.classList.add("snake-head");
-      // snakeElement.style.backgroundImage = "url('./images/snake.png')";
-      // snakeElement.style.backgroundPosition = "0% 0%";
-      // snakeElement.style.backgroundSize = "300%";
-      // checkDirection(snakeElement);
-    } else if (i === snake.length - 1) {
-      snakeElement.classList.add("snake");
     } else {
       snakeElement.classList.add("snake");
     }
@@ -134,11 +127,14 @@ addEventListener("keydown", (e) => {
       break;
   }
 });
-restartGameBtn.addEventListener("click", () => {
-  gameOverModal.close();
-  gameOverModal.style.display = "none";
-  resetGame();
-  animate();
+addEventListener("keydown", (e) => {
+  if (lose.style.display === "flex" && e.code === "Enter") {
+    board.style.display = "grid";
+    lose.style.display = "none";
+    resetGame();
+    randomAppleLocation();
+    animate();
+  }
 });
 // ================ RESET GAME =====================
 
@@ -175,9 +171,8 @@ function animate() {
       requestAnimationFrame(animate);
     }, frameRate);
   } else {
-    console.log("end");
-    gameOverModal.showModal();
-    gameOverModal.style.display = "block";
+    lose.style.display = "flex";
+    board.style.display = "none";
     if (currentScore > highScore) {
       highScore = currentScore;
     }
