@@ -5,11 +5,12 @@ let startGameDiv = document.querySelector(".start-game");
 let restartGameBtn = document.querySelector(".restart-game-btn");
 let highScoreElement = document.querySelector(".high-score");
 let boardWidth = 15;
+let boardHeight = 10;
 let frameRate = 200;
 let highScore = 0;
 let currentScore = 0;
 board.style.gridTemplateColumns = `repeat(${boardWidth}, 1fr)`;
-board.style.gridTemplateRows = `repeat(${boardWidth}, 1fr)`;
+board.style.gridTemplateRows = `repeat(${boardHeight}, 1fr)`;
 let midBoard = Math.ceil(boardWidth / 2);
 let snake = [
   { x: midBoard, y: 3 },
@@ -26,7 +27,7 @@ function clearBoard() {
 // ================ APPLE LOCATION =====================
 function randomAppleLocation() {
   let num1 = Math.floor(Math.random() * boardWidth + 1);
-  let num2 = Math.floor(Math.random() * boardWidth + 1);
+  let num2 = Math.floor(Math.random() * boardHeight + 1);
   let location = { x: num1, y: num2 };
   if (snakeCollision(location)) {
     randomAppleLocation();
@@ -169,7 +170,7 @@ function snakeInsideBoundary() {
     snake[0].x + direction.x <= boardWidth &&
     snake[0].x + direction.x > 0 &&
     snake[0].y + direction.y > 0 &&
-    snake[0].y + direction.y <= boardWidth &&
+    snake[0].y + direction.y <= boardHeight &&
     !snakeCollision(nextHeadPos)
   );
 }
