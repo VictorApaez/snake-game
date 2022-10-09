@@ -1,6 +1,7 @@
 let board = document.querySelector(".board");
 let scoreElement = document.querySelector(".score");
 let lose = document.querySelector(".game-over");
+let startGameDiv = document.querySelector(".start-game");
 let restartGameBtn = document.querySelector(".restart-game-btn");
 let highScoreElement = document.querySelector(".high-score");
 let boardWidth = 15;
@@ -37,7 +38,7 @@ function randomAppleLocation() {
 // ================ SNAKE COLLISION =====================
 function snakeCollision(location) {
   let result = false;
-  for (let i = 1; i < snake.length; i++) {
+  for (let i = 1; i < snake.length - 1; i++) {
     if (JSON.stringify(snake[i]) === JSON.stringify(location)) {
       result = true;
     }
@@ -115,9 +116,17 @@ addEventListener("keydown", (e) => {
       break;
   }
 });
-// Hit Enter to restart game
+// Hit Enter to start/restart game
 addEventListener("keydown", (e) => {
   if (lose.style.display === "flex" && e.code === "Enter") {
+    board.style.display = "grid";
+    lose.style.display = "none";
+    resetGame();
+    randomAppleLocation();
+    animate();
+  }
+  if (startGameDiv.style.display === "") {
+    startGameDiv.style.display = "none";
     board.style.display = "grid";
     lose.style.display = "none";
     resetGame();
@@ -166,7 +175,7 @@ function snakeInsideBoundary() {
 }
 
 // ================ ANIMATION =====================
-randomAppleLocation(); // give apple a random location in the start
+// randomAppleLocation(); // give apple a random location in the start
 function animate() {
   if (snakeInsideBoundary()) {
     clearBoard();
@@ -181,4 +190,4 @@ function animate() {
     displayGameOver();
   }
 }
-animate();
+// animate();
