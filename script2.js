@@ -3,6 +3,7 @@ let scoreElement = document.querySelector(".score");
 let lose = document.querySelector(".game-over");
 let startGameDiv = document.querySelector(".start-game");
 let restartGameBtn = document.querySelector(".restart-game-btn");
+let playerScoreElement = document.querySelector(".player-score");
 let highScoreElement = document.querySelector(".high-score");
 let boardWidth = 15;
 let boardHeight = 10;
@@ -158,6 +159,7 @@ function displayGameOver() {
     highScore = currentScore;
   }
   highScoreElement.textContent = `High Score: ${highScore}`;
+  playerScoreElement.textContent = `Score: ${currentScore}`;
 }
 // ================ SNAKE BOUNDARIES =====================
 
@@ -192,3 +194,55 @@ function animate() {
   }
 }
 // animate();
+
+///////////////
+// function animate() {
+//   if (snakeInsideBoundary()) {
+//     clearBoard();
+//     setDirection(keysPressed.at(-1));
+//     keysPressed = [];
+//     update();
+//     snakeAppleCollision();
+//     drawSnake();
+//     drawApple();
+//     setTimeout(() => {
+//       requestAnimationFrame(animate);
+//     }, frameRate);
+//   } else {
+//     displayGameOver();
+//   }
+// }
+
+// let keysPressed = [];
+// addEventListener("keydown", (e) => {
+//   keysPressed.push(e.code);
+// });
+
+// function setDirection(lastDir) {
+//   switch (lastDir) {
+//     case "ArrowUp":
+//       if (direction.y !== 1) {
+//         direction.y = -1;
+//         direction.x = 0;
+//       }
+//       break;
+//     case "ArrowDown":
+//       if (direction.y !== -1) {
+//         direction.y = 1;
+//         direction.x = 0;
+//       }
+//       break;
+//     case "ArrowLeft":
+//       if (direction.x !== 1) {
+//         direction.y = 0;
+//         direction.x = -1;
+//       }
+//       break;
+//     case "ArrowRight":
+//       if (direction.x !== -1) {
+//         direction.y = 0;
+//         direction.x = 1;
+//       }
+//       break;
+//   }
+// }
