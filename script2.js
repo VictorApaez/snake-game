@@ -178,7 +178,7 @@ function snakeInsideBoundary() {
 }
 
 // ================ ANIMATION =====================
-// randomAppleLocation(); // give apple a random location in the start
+randomAppleLocation(); // give apple a random location in the start
 function animate() {
   if (snakeInsideBoundary()) {
     clearBoard();
@@ -186,6 +186,7 @@ function animate() {
     snakeAppleCollision();
     drawSnake();
     drawApple();
+
     setTimeout(() => {
       requestAnimationFrame(animate);
     }, frameRate);
@@ -193,56 +194,3 @@ function animate() {
     displayGameOver();
   }
 }
-// animate();
-
-///////////////
-// function animate() {
-//   if (snakeInsideBoundary()) {
-//     clearBoard();
-//     setDirection(keysPressed.at(-1));
-//     keysPressed = [];
-//     update();
-//     snakeAppleCollision();
-//     drawSnake();
-//     drawApple();
-//     setTimeout(() => {
-//       requestAnimationFrame(animate);
-//     }, frameRate);
-//   } else {
-//     displayGameOver();
-//   }
-// }
-
-// let keysPressed = [];
-// addEventListener("keydown", (e) => {
-//   keysPressed.push(e.code);
-// });
-
-// function setDirection(lastDir) {
-//   switch (lastDir) {
-//     case "ArrowUp":
-//       if (direction.y !== 1) {
-//         direction.y = -1;
-//         direction.x = 0;
-//       }
-//       break;
-//     case "ArrowDown":
-//       if (direction.y !== -1) {
-//         direction.y = 1;
-//         direction.x = 0;
-//       }
-//       break;
-//     case "ArrowLeft":
-//       if (direction.x !== 1) {
-//         direction.y = 0;
-//         direction.x = -1;
-//       }
-//       break;
-//     case "ArrowRight":
-//       if (direction.x !== -1) {
-//         direction.y = 0;
-//         direction.x = 1;
-//       }
-//       break;
-//   }
-// }
