@@ -3,6 +3,7 @@
 This is an implementation of the classic Snake game. The game includes the snake, apples for the snake to consume, and mechanics for the snake's movement and growth. The goal is to consume as many apples as possible without the snake colliding with itself or the boundaries of the board.
 
 You can find a live demo at the following link: https://victorapaez.github.io/snake-game/
+
 ![SNAKE_GAME_FINAL](https://github.com/VictorApaez/snake-game/assets/56009643/49b3996e-966f-497e-8fb8-5659bce17902)
 
 ## Key Features:
